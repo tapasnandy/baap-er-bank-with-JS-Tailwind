@@ -1,17 +1,36 @@
+function commonBankingCalculation(amountInput, currentField, isAdd) {
+    const amountInputField = document.getElementById(amountInput);
+    const currentFieldStatus = document.getElementById(currentField);
+    const currentBalanceField = document.getElementById("current-balance-field");
+    const withdrawInputField = document.getElementById("withdraw-amount-input");
+
+    let totalBalanceAmount;
+    console.log(amountInputField.value);
+    if (amountInputField.value < 0 || withdrawInputField.value > currentBalanceField.innerText || amountInputField.value == "") {
+        alert("Please input valid amount!!");
+        amountInputField.value = "";
+    }
+    else {
+
+        const totalAmount = parseInt(amountInputField.value) + parseInt(currentFieldStatus.innerText);
+
+        if (isAdd == true) {
+            totalBalanceAmount = parseInt(amountInputField.value) + parseInt(currentBalanceField.innerText);
+        }
+        else {
+            totalBalanceAmount = parseInt(currentBalanceField.innerText) - parseInt(amountInputField.value);
+        }
+        amountInputField.value = "";
+        currentFieldStatus.innerText = totalAmount;
+        currentBalanceField.innerText = totalBalanceAmount;
+    }
+
+}
+
 // click on deposit button 
 document.getElementById("deposit-btn").addEventListener("click", function () {
 
-
-    const depositAmountInput = document.getElementById("deposit-amount-input");
-    const currentDepositField = document.getElementById("current-deposit-field");
-    const currentBalanceField = document.getElementById("current-balance-field");
-
-    const totalDepositAmount = parseInt(depositAmountInput.value) + parseInt(currentDepositField.innerText);
-    const totalBalanceAmount = parseInt(depositAmountInput.value) + parseInt(currentBalanceField.innerText);
-
-    depositAmountInput.value = "";
-    currentDepositField.innerText = totalDepositAmount;
-    currentBalanceField.innerText = totalBalanceAmount;
+    commonBankingCalculation('deposit-amount-input', 'current-deposit-field', true);
 
 
 })
@@ -19,17 +38,6 @@ document.getElementById("deposit-btn").addEventListener("click", function () {
 // click on withdraw button 
 document.getElementById("withdraw-btn").addEventListener("click", function () {
 
-
-    const withdrawAmountInput = document.getElementById("withdraw-amount-input");
-    const currentWithdrawField = document.getElementById("current-withdraw-field");
-    const currentBalanceField = document.getElementById("current-balance-field");
-
-    const totalWithdrawAmount = parseInt(withdrawAmountInput.value) + parseInt(currentWithdrawField.innerText);
-    const totalBalanceAmount = parseInt(currentBalanceField.innerText) - parseInt(withdrawAmountInput.value);
-
-    withdrawAmountInput.value = "";
-    currentWithdrawField.innerText = totalWithdrawAmount;
-    currentBalanceField.innerText = totalBalanceAmount;
-
+    commonBankingCalculation('withdraw-amount-input', 'current-withdraw-field', false);
 
 })
